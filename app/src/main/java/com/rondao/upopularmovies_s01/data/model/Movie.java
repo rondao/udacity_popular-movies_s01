@@ -1,11 +1,13 @@
 package com.rondao.upopularmovies_s01.data.model;
 
+import com.google.gson.Gson;
+
 public class Movie {
     private String originalTitle;
     private String posterPath;
-    private String plotSynopsis;
-    private float userRating;
-    private String date;
+    private String overview;
+    private float voteAverage;
+    private String releaseDate;
 
     public String getOriginalTitle() {
         return originalTitle;
@@ -23,27 +25,32 @@ public class Movie {
         this.posterPath = posterPath;
     }
 
-    public String getPlotSynopsis() {
-        return plotSynopsis;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setPlotSynopsis(String plotSynopsis) {
-        this.plotSynopsis = plotSynopsis;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
-    public float getUserRating() {
-        return userRating;
+    public float getVoteAverage() {
+        return voteAverage;
     }
 
-    public void setUserRating(float userRating) {
-        this.userRating = userRating;
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
     }
 
-    public String getDate() {
-        return date;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }
