@@ -53,6 +53,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
                 item.setIcon(R.drawable.ic_most_popular);
             }
 
+            mRecyclerView.getLayoutManager().scrollToPosition(0);
             new FetchMoviesTask().execute(currentSort);
             return true;
         }
