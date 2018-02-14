@@ -13,7 +13,7 @@ import com.rondao.upopularmovies_s01.data.source.MoviesAPI;
 
 import java.util.ArrayList;
 
-public class MoviesActivity extends AppCompatActivity {
+public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.MovietItemClickListener {
     private RecyclerView mRecyclerView;
     private MoviesAdapter mMoviesAdapter;
 
@@ -29,7 +29,7 @@ public class MoviesActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setHasFixedSize(true);
 
-        mMoviesAdapter = new MoviesAdapter();
+        mMoviesAdapter = new MoviesAdapter(this);
         mRecyclerView.setAdapter(mMoviesAdapter);
 
         new FetchMoviesTask().execute(currentSort);
@@ -56,6 +56,10 @@ public class MoviesActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMovieItemClick(Movie movie) {
     }
 
     class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {

@@ -2,9 +2,9 @@ package com.rondao.upopularmovies_s01;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -15,23 +15,38 @@ import java.util.ArrayList;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder> {
     private ArrayList<Movie> mMoviesData;
+    private final MovietItemClickListener mOnClickListener;
 
-    public MoviesAdapter() {
+    public MoviesAdapter(MovietItemClickListener onClickListener) {
         mMoviesData = new ArrayList<Movie>();
+        mOnClickListener = onClickListener;
     }
 
-    public class MoviesAdapterViewHolder extends RecyclerView.ViewHolder {
+    public interface MovietItemClickListener {
+        void onMovieItemClick(Movie movie);
+    }
+
+    public class MoviesAdapterViewHolder extends RecyclerView.ViewHolder
+            implements OnClickListener {
         public final ImageView mMovieImageView;
 
         public MoviesAdapterViewHolder(View view) {
             super(view);
             mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_thumbnail);
+
+            itemView.setOnClickListener(this);
         }
 
         protected void bind(Movie movie) {
             Picasso.with(mMovieImageView.getContext())
                     .load(movie.getPosterFullPath())
                     .into(mMovieImageView);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mOnClickListener.onMovieItemClick(
+                    mMoviesData.get(getAdapterPosition()));
         }
     }
 
