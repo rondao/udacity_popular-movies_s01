@@ -1,5 +1,6 @@
 package com.rondao.upopularmovies_s01;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
     @Override
     public void onMovieItemClick(Movie movie) {
+        startActivity(new Intent(this, MovieDetailsActivity.class));
     }
 
     class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {
