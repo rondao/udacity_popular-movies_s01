@@ -27,6 +27,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
             super(view);
             mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_thumbnail);
         }
+
+        protected void bind(Movie movie) {
+            Picasso.with(mMovieImageView.getContext())
+                    .load(movie.getPosterFullPath())
+                    .into(mMovieImageView);
+        }
     }
 
     @Override
@@ -41,11 +47,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     @Override
     public void onBindViewHolder(MoviesAdapterViewHolder moviesAdapterViewHolder, int position) {
         Movie movie = mMoviesData.get(position);
-        ImageView thumbnailView = moviesAdapterViewHolder.mMovieImageView;
-
-        Picasso.with(thumbnailView.getContext())
-                .load(movie.getPosterFullPath())
-                .into(thumbnailView);
+        moviesAdapterViewHolder.bind(movie);
     }
 
     @Override
