@@ -1,8 +1,11 @@
 package com.rondao.upopularmovies_s01.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.Gson;
 
-public class Movie {
+public class Movie implements Parcelable {
     private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
 
     private String originalTitle;
@@ -11,9 +14,39 @@ public class Movie {
     private float voteAverage;
     private String releaseDate;
 
+    public Movie() {}
+
+    public Movie(Parcel in) {
+        originalTitle = in.readString();
+        posterPath = in.readString();
+        overview = in.readString();
+        voteAverage = in.readFloat();
+        releaseDate = in.readString();
+    }
+
     public String getPosterFullPath() {
         return BASE_POSTER_URL + getPosterPath();
     }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(originalTitle);
+        out.writeString(posterPath);
+        out.writeString(overview);
+        out.writeFloat(voteAverage);
+        out.writeString(releaseDate);
+    }
+
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getOriginalTitle() {
         return originalTitle;
@@ -58,5 +91,10 @@ public class Movie {
     @Override
     public String toString() {
         return new Gson().toJson(this);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }
