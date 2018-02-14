@@ -3,11 +3,17 @@ package com.rondao.upopularmovies_s01.data.model;
 import com.google.gson.Gson;
 
 public class Movie {
+    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
+
     private String originalTitle;
     private String posterPath;
     private String overview;
     private float voteAverage;
     private String releaseDate;
+
+    public String getPosterFullPath() {
+        return BASE_POSTER_URL + getPosterPath();
+    }
 
     public String getOriginalTitle() {
         return originalTitle;
