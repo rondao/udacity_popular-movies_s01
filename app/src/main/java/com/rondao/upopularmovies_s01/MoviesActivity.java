@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.rondao.upopularmovies_s01.data.model.Movie;
 import com.rondao.upopularmovies_s01.data.source.MoviesAPI;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 public class MoviesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MoviesAdapter mMoviesAdapter;
+
+    private String currentSort = MoviesAPI.MOST_POPULAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +32,30 @@ public class MoviesActivity extends AppCompatActivity {
         mMoviesAdapter = new MoviesAdapter();
         mRecyclerView.setAdapter(mMoviesAdapter);
 
-        new FetchMoviesTask().execute(MoviesAPI.MOST_POPULAR);
+        new FetchMoviesTask().execute(currentSort);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movies_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_toggle_sort) {
+            if (currentSort.equals(MoviesAPI.MOST_POPULAR)) {
+                currentSort = MoviesAPI.TOP_RATED;
+                item.setIcon(R.drawable.ic_top_rated);
+            } else {
+                currentSort = MoviesAPI.MOST_POPULAR;
+                item.setIcon(R.drawable.ic_most_popular);
+            }
+
+            new FetchMoviesTask().execute(currentSort);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {
