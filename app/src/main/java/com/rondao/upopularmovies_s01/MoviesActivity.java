@@ -61,7 +61,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
     @Override
     public void onMovieItemClick(Movie movie) {
-        startActivity(new Intent(this, MovieDetailsActivity.class));
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra("movie", movie);
+
+        startActivity(intent);
     }
 
     class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {

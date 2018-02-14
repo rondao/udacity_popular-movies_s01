@@ -6,4 +6,86 @@
     android:layout_height="match_parent"
     tools:context="com.rondao.upopularmovies_s01.MovieDetailsActivity">
 
+    <ImageView
+        android:id="@+id/iv_movie_poster"
+        android:layout_width="92dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="TODO"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_original_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_movie_original_title"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_movie_original_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_original_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_average_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_movie_average_rating"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title" />
+
+    <TextView
+        android:id="@+id/tv_movie_average_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_average_rating"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title" />
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_movie_release_date"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_average_rating" />
+
+    <TextView
+        android:id="@+id/tv_movie_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_release_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_average_rating" />
+
+    <TextView
+        android:id="@+id/tv_movie_synopsis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster" />
 </android.support.constraint.ConstraintLayout>
