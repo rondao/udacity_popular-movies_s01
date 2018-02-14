@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 
 import com.rondao.upopularmovies_s01.data.model.Movie;
 import com.rondao.upopularmovies_s01.data.source.MoviesAPI;
@@ -29,6 +30,12 @@ public class MoviesActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mMoviesAdapter);
 
         new FetchMoviesTask().execute(MoviesAPI.MOST_POPULAR);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movies_menu, menu);
+        return true;
     }
 
     class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {

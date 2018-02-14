@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Popular Movies</string>
+    <string name="menu_toggle_sort">Toggle Sorting</string>
 </resources>
