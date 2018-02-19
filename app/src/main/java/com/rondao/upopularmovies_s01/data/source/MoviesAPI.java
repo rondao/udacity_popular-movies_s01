@@ -43,7 +43,7 @@ public class MoviesAPI {
     }
 
     private static String queryMovies(String query) {
-        String jsonResult = "";
+        String jsonResult = "{}";
 
         Uri queryUri = Uri.parse(BASE_API_URL + query).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM, TMDB.getKey())

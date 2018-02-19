@@ -86,7 +86,9 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
         @Override
         protected void onPostExecute(ArrayList<Movie> movies) {
-            mMoviesAdapter.seMoviesData(movies);
+            if (movies != null) {
+                mMoviesAdapter.seMoviesData(movies);
+            }
             mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
     }
