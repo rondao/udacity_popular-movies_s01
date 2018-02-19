@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     private MoviesAdapter mMoviesAdapter;
     private ProgressBar mLoadingIndicator;
     private TextView mErrorMessage;
+    private ImageView mRefreshButton;
 
     private String currentSort = MoviesAPI.MOST_POPULAR;
 
@@ -32,7 +34,15 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
         mLoadingIndicator = (ProgressBar) findViewById(R.id.progressBar);
         mErrorMessage = (TextView) findViewById(R.id.tv_error_msg);
+        mRefreshButton = (ImageView) findViewById(R.id.iv_refresh);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_thumbnails);
+
+        mRefreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FetchMoviesTask().execute(currentSort);
+            }
+        });
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setHasFixedSize(true);
@@ -81,6 +91,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
             super.onPreExecute();
             mLoadingIndicator.setVisibility(View.VISIBLE);
             mErrorMessage.setVisibility(View.INVISIBLE);
+            mRefreshButton.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -94,6 +105,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
                 mMoviesAdapter.seMoviesData(movies);
             } else {
                 mErrorMessage.setVisibility(View.VISIBLE);
+                mRefreshButton.setVisibility(View.VISIBLE);
             }
             mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
