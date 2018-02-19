@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.rondao.upopularmovies_s01.data.model.Movie;
 import com.rondao.upopularmovies_s01.data.source.MoviesAPI;
@@ -20,6 +21,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     private RecyclerView mRecyclerView;
     private MoviesAdapter mMoviesAdapter;
     private ProgressBar mLoadingIndicator;
+    private TextView mErrorMessage;
 
     private String currentSort = MoviesAPI.MOST_POPULAR;
 
@@ -29,6 +31,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         setContentView(R.layout.activity_movies);
 
         mLoadingIndicator = (ProgressBar) findViewById(R.id.progressBar);
+        mErrorMessage = (TextView) findViewById(R.id.tv_error_msg);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_thumbnails);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -77,6 +80,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         protected void onPreExecute() {
             super.onPreExecute();
             mLoadingIndicator.setVisibility(View.VISIBLE);
+            mErrorMessage.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -88,6 +92,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         protected void onPostExecute(ArrayList<Movie> movies) {
             if (movies != null) {
                 mMoviesAdapter.seMoviesData(movies);
+            } else {
+                mErrorMessage.setVisibility(View.VISIBLE);
             }
             mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
