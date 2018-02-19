@@ -49,7 +49,7 @@ public class MoviesAPI {
                 .appendQueryParameter(API_KEY_PARAM, TMDB.getKey())
                 .build();
 
-        URL queryUrl = null;
+        URL queryUrl;
         try {
             queryUrl = new URL(queryUri.toString());
         } catch (MalformedURLException e) {

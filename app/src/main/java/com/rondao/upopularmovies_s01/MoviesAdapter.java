@@ -15,14 +15,14 @@ import java.util.ArrayList;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder> {
     private ArrayList<Movie> mMoviesData;
-    private final MovietItemClickListener mOnClickListener;
+    private final MovieItemClickListener mOnClickListener;
 
-    public MoviesAdapter(MovietItemClickListener onClickListener) {
-        mMoviesData = new ArrayList<Movie>();
+    public MoviesAdapter(MovieItemClickListener onClickListener) {
+        mMoviesData = new ArrayList<>();
         mOnClickListener = onClickListener;
     }
 
-    public interface MovietItemClickListener {
+    public interface MovieItemClickListener {
         void onMovieItemClick(Movie movie);
     }
 
@@ -32,12 +32,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
         public MoviesAdapterViewHolder(View view) {
             super(view);
-            mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_thumbnail);
+            mMovieImageView = view.findViewById(R.id.iv_movie_thumbnail);
 
             itemView.setOnClickListener(this);
         }
 
-        protected void bind(Movie movie) {
+        void bind(Movie movie) {
             Picasso.with(mMovieImageView.getContext())
                     .load(movie.getPosterFullPath())
                     .into(mMovieImageView);
@@ -70,7 +70,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         return mMoviesData.size();
     }
 
-    public void seMoviesData(ArrayList<Movie> moviesData) {
+    public void setMoviesData(ArrayList<Movie> moviesData) {
         mMoviesData = moviesData;
         notifyDataSetChanged();
     }

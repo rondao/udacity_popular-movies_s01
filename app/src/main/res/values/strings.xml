@@ -2,6 +2,7 @@
     <string name="app_name">Popular Movies</string>
     <string name="menu_toggle_sort">Toggle Sorting</string>
     <string name="iv_movie_poster">Movie Poster</string>
+    <string name="iv_movie_thumbnail">Movie Thumbnail</string>
     <string name="iv_refresh_button">Refresh</string>
     <string name="tv_movie_original_title">Original Title:</string>
     <string name="tv_movie_average_rating">Average Rating:</string>

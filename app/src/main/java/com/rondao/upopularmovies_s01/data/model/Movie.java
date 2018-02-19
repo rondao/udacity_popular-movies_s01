@@ -16,7 +16,7 @@ public class Movie implements Parcelable {
 
     public Movie() {}
 
-    public Movie(Parcel in) {
+    private Movie(Parcel in) {
         originalTitle = in.readString();
         posterPath = in.readString();
         overview = in.readString();
@@ -56,7 +56,7 @@ public class Movie implements Parcelable {
         this.originalTitle = originalTitle;
     }
 
-    public String getPosterPath() {
+    private String getPosterPath() {
         return posterPath;
     }
 

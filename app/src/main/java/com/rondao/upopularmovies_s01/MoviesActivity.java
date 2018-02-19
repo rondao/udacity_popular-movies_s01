@@ -18,7 +18,7 @@ import com.rondao.upopularmovies_s01.data.source.MoviesAPI;
 
 import java.util.ArrayList;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.MovietItemClickListener {
+public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.MovieItemClickListener {
     private RecyclerView mRecyclerView;
     private MoviesAdapter mMoviesAdapter;
     private ProgressBar mLoadingIndicator;
@@ -32,10 +32,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
 
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.progressBar);
-        mErrorMessage = (TextView) findViewById(R.id.tv_error_msg);
-        mRefreshButton = (ImageView) findViewById(R.id.iv_refresh);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_thumbnails);
+        mLoadingIndicator = findViewById(R.id.progressBar);
+        mErrorMessage = findViewById(R.id.tv_error_msg);
+        mRefreshButton = findViewById(R.id.iv_refresh);
+        mRecyclerView = findViewById(R.id.recyclerview_thumbnails);
 
         mRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         @Override
         protected void onPostExecute(ArrayList<Movie> movies) {
             if (movies != null) {
-                mMoviesAdapter.seMoviesData(movies);
+                mMoviesAdapter.setMoviesData(movies);
             } else {
                 mErrorMessage.setVisibility(View.VISIBLE);
                 mRefreshButton.setVisibility(View.VISIBLE);
