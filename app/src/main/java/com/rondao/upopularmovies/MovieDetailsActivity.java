@@ -1,11 +1,11 @@
-package com.rondao.upopularmovies_s01;
+package com.rondao.upopularmovies;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rondao.upopularmovies_s01.data.model.Movie;
+import com.rondao.upopularmovies.data.model.Movie;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {

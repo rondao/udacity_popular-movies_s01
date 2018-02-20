@@ -1,4 +1,4 @@
-package com.rondao.upopularmovies_s01.data.source;
+package com.rondao.upopularmovies.data.source;
 
 import android.net.Uri;
 
@@ -9,7 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.rondao.upopularmovies_s01.data.model.Movie;
+import com.rondao.upopularmovies.data.model.Movie;
 
 import java.io.IOException;
 import java.io.InputStream;
