@@ -7,7 +7,7 @@ This project is for Udacity Android Nano Degree.
 This project uses The Movies DB API for fetching movies information.
 Insert TMDB API Key at following file:
 
-com.rondao.upopularmovies_s01.data.source.TMDB
+upopularmovies.data.source.TMDB
 
 ```
 private static final String API_KEY = "YOUR TMDB API KEY";

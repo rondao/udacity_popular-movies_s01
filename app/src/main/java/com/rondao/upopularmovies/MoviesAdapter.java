@@ -1,4 +1,4 @@
-package com.rondao.upopularmovies_s01;
+package com.rondao.upopularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.rondao.upopularmovies_s01.data.model.Movie;
+import com.rondao.upopularmovies.data.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

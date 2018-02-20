@@ -1,4 +1,4 @@
-package com.rondao.upopularmovies_s01.data.model;
+package com.rondao.upopularmovies.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

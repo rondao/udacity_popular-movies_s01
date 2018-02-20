@@ -1,4 +1,4 @@
-package com.rondao.upopularmovies_s01;
+package com.rondao.upopularmovies;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.rondao.upopularmovies_s01.data.model.Movie;
-import com.rondao.upopularmovies_s01.data.source.MoviesAPI;
+import com.rondao.upopularmovies.data.model.Movie;
+import com.rondao.upopularmovies.data.source.MoviesAPI;
 
 import java.util.ArrayList;
 
