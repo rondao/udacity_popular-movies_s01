@@ -82,7 +82,7 @@
             android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster"
-            tools:text="@string/tv_movie_sinopsis" />
+            tools:text="@string/tv_movie_synopsis" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
