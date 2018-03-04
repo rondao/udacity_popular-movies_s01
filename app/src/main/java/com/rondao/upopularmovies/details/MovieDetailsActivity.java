@@ -1,4 +1,4 @@
-package com.rondao.upopularmovies;
+package com.rondao.upopularmovies.details;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rondao.upopularmovies.R;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.squareup.picasso.Picasso;
 

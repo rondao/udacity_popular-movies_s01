@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.source.MoviesAPI;
+import com.rondao.upopularmovies.details.MovieDetailsActivity;
 
 import java.util.ArrayList;
 
