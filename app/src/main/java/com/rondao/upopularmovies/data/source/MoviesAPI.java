@@ -10,8 +10,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.rondao.upopularmovies.data.model.Movie;
-import com.rondao.upopularmovies.data.model.MovieReview;
-import com.rondao.upopularmovies.data.model.MovieTrailer;
+import com.rondao.upopularmovies.data.model.Review;
+import com.rondao.upopularmovies.data.model.Trailer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,14 +40,14 @@ public class MoviesAPI {
         return (ArrayList<Movie>) getGenericList(queryMovies(query), listType);
     }
 
-    public static ArrayList<MovieReview> getMovieReviews(int movieId) {
-        Type listType = new TypeToken<ArrayList<MovieReview>>(){}.getType();
-        return (ArrayList<MovieReview>) getGenericList(queryMovieReviews(movieId), listType);
+    public static ArrayList<Review> getMovieReviews(int movieId) {
+        Type listType = new TypeToken<ArrayList<Review>>(){}.getType();
+        return (ArrayList<Review>) getGenericList(queryMovieReviews(movieId), listType);
     }
 
-    public static ArrayList<MovieTrailer> getMovieTrailers(int movieId) {
-        Type listType = new TypeToken<ArrayList<MovieTrailer>>(){}.getType();
-        return (ArrayList<MovieTrailer>) getGenericList(queryMovieTrailers(movieId), listType);
+    public static ArrayList<Trailer> getMovieTrailers(int movieId) {
+        Type listType = new TypeToken<ArrayList<Trailer>>(){}.getType();
+        return (ArrayList<Trailer>) getGenericList(queryMovieTrailers(movieId), listType);
     }
 
     private static ArrayList<?> getGenericList(String json, Type listType) {

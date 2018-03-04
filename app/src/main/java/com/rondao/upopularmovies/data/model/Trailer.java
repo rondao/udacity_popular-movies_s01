@@ -2,7 +2,7 @@ package com.rondao.upopularmovies.data.model;
 
 import com.google.gson.Gson;
 
-public class MovieTrailer {
+public class Trailer {
 
     private String id;
     private String key;

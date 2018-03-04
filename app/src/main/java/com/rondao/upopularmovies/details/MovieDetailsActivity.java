@@ -15,21 +15,21 @@ import android.widget.TextView;
 
 import com.rondao.upopularmovies.R;
 import com.rondao.upopularmovies.data.model.Movie;
-import com.rondao.upopularmovies.data.model.MovieReview;
-import com.rondao.upopularmovies.data.model.MovieTrailer;
+import com.rondao.upopularmovies.data.model.Review;
+import com.rondao.upopularmovies.data.model.Trailer;
 import com.rondao.upopularmovies.data.source.MoviesAPI;
 import com.rondao.upopularmovies.utils.YouTubeHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MovieDetailsActivity extends AppCompatActivity implements MovieTrailersAdapter.MovieTrailerItemClickListener {
+public class MovieDetailsActivity extends AppCompatActivity implements TrailersAdapter.TrailerItemClickListener {
 
     private RecyclerView mRecyclerViewReviews;
-    private MovieReviewsAdapter mMovieReviewsAdapter;
+    private ReviewsAdapter mReviewsAdapter;
 
     private RecyclerView mRecyclerViewTrailers;
-    private MovieTrailersAdapter mMovieTrailersAdapter;
+    private TrailersAdapter mTrailersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +51,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
         ((TextView) findViewById(R.id.tv_movie_synopsis))
                 .setText(movie.getOverview());
 
-        mMovieReviewsAdapter = new MovieReviewsAdapter();
-        mMovieTrailersAdapter = new MovieTrailersAdapter(this);
+        mReviewsAdapter = new ReviewsAdapter();
+        mTrailersAdapter = new TrailersAdapter(this);
 
         mRecyclerViewReviews = findViewById(R.id.recyclerview_reviews);
         mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewReviews.setHasFixedSize(true);
-        mRecyclerViewReviews.setAdapter(mMovieReviewsAdapter);
+        mRecyclerViewReviews.setAdapter(mReviewsAdapter);
 
         mRecyclerViewTrailers = findViewById(R.id.recyclerview_trailers);
         mRecyclerViewTrailers.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerViewTrailers.setHasFixedSize(true);
-        mRecyclerViewTrailers.setAdapter(mMovieTrailersAdapter);
+        mRecyclerViewTrailers.setAdapter(mTrailersAdapter);
 
         new FetchMovieReviewsTask().execute(movie.getId());
         new FetchMovieTrailersTask().execute(movie.getId());
@@ -83,9 +83,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
     }
 
     @Override
-    public void onMovieTrailerItemClick(MovieTrailer movieTrailer) {
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, YouTubeHelper.getAppUri(movieTrailer.getKey()));
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, YouTubeHelper.getWebUri(movieTrailer.getKey()));
+    public void onMovieTrailerItemClick(Trailer trailer) {
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, YouTubeHelper.getAppUri(trailer.getKey()));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, YouTubeHelper.getWebUri(trailer.getKey()));
 
         try {
             startActivity(appIntent);
@@ -94,30 +94,30 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieTrai
         }
     }
 
-    class FetchMovieReviewsTask extends AsyncTask<Integer, Void, ArrayList<MovieReview>> {
+    class FetchMovieReviewsTask extends AsyncTask<Integer, Void, ArrayList<Review>> {
         @Override
-        protected ArrayList<MovieReview> doInBackground(Integer... params) {
+        protected ArrayList<Review> doInBackground(Integer... params) {
             return MoviesAPI.getMovieReviews(params[0]);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<MovieReview> movieReviews) {
-            if (movieReviews != null) {
-                mMovieReviewsAdapter.setMovieReviewsData(movieReviews);
+        protected void onPostExecute(ArrayList<Review> reviews) {
+            if (reviews != null) {
+                mReviewsAdapter.setMovieReviewsData(reviews);
             }
         }
     }
 
-    class FetchMovieTrailersTask extends AsyncTask<Integer, Void, ArrayList<MovieTrailer>> {
+    class FetchMovieTrailersTask extends AsyncTask<Integer, Void, ArrayList<Trailer>> {
         @Override
-        protected ArrayList<MovieTrailer> doInBackground(Integer... params) {
+        protected ArrayList<Trailer> doInBackground(Integer... params) {
             return MoviesAPI.getMovieTrailers(params[0]);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<MovieTrailer> movieTrailers) {
-            if (movieTrailers != null) {
-                mMovieTrailersAdapter.setMovieTrailersData(movieTrailers);
+        protected void onPostExecute(ArrayList<Trailer> trailers) {
+            if (trailers != null) {
+                mTrailersAdapter.setMovieTrailersData(trailers);
             }
         }
     }

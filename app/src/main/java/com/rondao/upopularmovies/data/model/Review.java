@@ -2,7 +2,7 @@ package com.rondao.upopularmovies.data.model;
 
 import com.google.gson.Gson;
 
-public class MovieReview {
+public class Review {
 
     private String id;
     private String author;
