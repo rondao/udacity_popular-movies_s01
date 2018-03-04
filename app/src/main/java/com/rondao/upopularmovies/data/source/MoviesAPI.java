@@ -11,6 +11,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.MovieReview;
+import com.rondao.upopularmovies.data.model.MovieTrailer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +31,7 @@ public class MoviesAPI {
     public static final String TOP_RATED = "/movie/top_rated";
 
     public static final String MOVIE_REVIEWS = "/movie/%d/reviews";
+    public static final String MOVIE_TRAILERS = "/movie/%d/videos";
 
     private static final String API_KEY_PARAM = "api_key";
 
@@ -41,6 +43,11 @@ public class MoviesAPI {
     public static ArrayList<MovieReview> getMovieReviews(int movieId) {
         Type listType = new TypeToken<ArrayList<MovieReview>>(){}.getType();
         return (ArrayList<MovieReview>) getGenericList(queryMovieReviews(movieId), listType);
+    }
+
+    public static ArrayList<MovieTrailer> getMovieTrailers(int movieId) {
+        Type listType = new TypeToken<ArrayList<MovieTrailer>>(){}.getType();
+        return (ArrayList<MovieTrailer>) getGenericList(queryMovieTrailers(movieId), listType);
     }
 
     private static ArrayList<?> getGenericList(String json, Type listType) {
@@ -64,6 +71,14 @@ public class MoviesAPI {
 
     private static String queryMovieReviews(int movieId) {
         Uri queryUri = Uri.parse(BASE_API_URL + String.format(MOVIE_REVIEWS, movieId)).buildUpon()
+                .appendQueryParameter(API_KEY_PARAM, TMDB.getKey())
+                .build();
+
+        return queryUri(queryUri);
+    }
+
+    private static String queryMovieTrailers(int movieId) {
+        Uri queryUri = Uri.parse(BASE_API_URL + String.format(MOVIE_TRAILERS, movieId)).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM, TMDB.getKey())
                 .build();
 
