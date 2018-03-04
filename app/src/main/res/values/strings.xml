@@ -13,4 +13,9 @@
     <string name="tv_movie_release_date">Movie Release Date</string>
     <string name="tv_movie_synopsis">Movie Synopsis</string>
     <string name="tv_error_msg">An error has occurred. Please try Refreshing.</string>
+    <string name="tv_label_review_author">Author:</string>
+    <string name="tv_review_author">Author Name</string>
+    <string name="tv_review_content">Review Content</string>
+    <string name="tv_label_review_number">Review</string>
+    <string name="tv_review_number">#num</string>
 </resources>

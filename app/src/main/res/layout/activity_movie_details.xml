@@ -84,5 +84,15 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster"
             tools:text="@string/tv_movie_synopsis" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_reviews"
+            android:layout_width="368dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_synopsis" />
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
