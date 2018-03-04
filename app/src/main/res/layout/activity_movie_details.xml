@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,7 +29,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/tv_movie_original_title"
+            android:text="@string/tv_original_title"
             app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,7 +41,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/tv_original_title"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/tv_movie_original_title" />
 
         <TextView
             android:id="@+id/tv_average_rating"
@@ -49,7 +51,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/tv_movie_average_rating"
+            android:text="@string/tv_average_rating"
             app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title" />
 
@@ -61,7 +63,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/tv_average_rating"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title"
+            tools:text="@string/tv_movie_average_rating" />
 
         <TextView
             android:id="@+id/tv_release_date"
@@ -70,7 +73,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/tv_movie_release_date"
+            android:text="@string/tv_release_date"
             app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
             app:layout_constraintTop_toBottomOf="@+id/tv_average_rating" />
 
@@ -82,7 +85,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/tv_release_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_average_rating" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_average_rating"
+            tools:text="@string/tv_movie_release_date" />
 
         <TextView
             android:id="@+id/tv_movie_synopsis"
@@ -92,6 +96,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster"
+            tools:text="@string/tv_movie_sinopsis" />
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

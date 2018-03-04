@@ -5,8 +5,12 @@
     <string name="iv_movie_poster">Movie Poster</string>
     <string name="iv_movie_thumbnail">Movie Thumbnail</string>
     <string name="iv_refresh_button">Refresh</string>
-    <string name="tv_movie_original_title">Original Title:</string>
-    <string name="tv_movie_average_rating">Average Rating:</string>
-    <string name="tv_movie_release_date">Release Date:</string>
+    <string name="tv_original_title">Original Title:</string>
+    <string name="tv_movie_original_title">Movie Title</string>
+    <string name="tv_average_rating">Average Rating:</string>
+    <string name="tv_movie_average_rating">Movie Rating</string>
+    <string name="tv_release_date">Release Date:</string>
+    <string name="tv_movie_release_date">Movie Release Date</string>
+    <string name="tv_movie_sinopsis">Movie Synopsis</string>
     <string name="tv_error_msg">An error has occurred. Please try Refreshing.</string>
 </resources>
