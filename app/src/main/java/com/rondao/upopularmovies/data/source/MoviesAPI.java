@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.rondao.upopularmovies.data.model.Movie;
+import com.rondao.upopularmovies.data.model.MovieReview;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,26 +29,49 @@ public class MoviesAPI {
     public static final String MOST_POPULAR = "/movie/popular";
     public static final String TOP_RATED = "/movie/top_rated";
 
+    public static final String MOVIE_REVIEWS = "/movie/%d/reviews";
+
     private static final String API_KEY_PARAM = "api_key";
 
     public static ArrayList<Movie> getMovies(String query) {
-        JsonObject jsonRoot = new JsonParser().parse(queryMovies(query)).getAsJsonObject();
+        Type listType = new TypeToken<ArrayList<Movie>>(){}.getType();
+        return (ArrayList<Movie>) getGenericList(queryMovies(query), listType);
+    }
+
+    public static ArrayList<MovieReview> getMovieReviews(int movieId) {
+        Type listType = new TypeToken<ArrayList<MovieReview>>(){}.getType();
+        return (ArrayList<MovieReview>) getGenericList(queryMovieReviews(movieId), listType);
+    }
+
+    private static ArrayList<?> getGenericList(String json, Type listType) {
+        JsonObject jsonRoot = new JsonParser().parse(json).getAsJsonObject();
         JsonArray jsonResults = jsonRoot.getAsJsonArray("results");
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
 
-        Type listType = new TypeToken<ArrayList<Movie>>(){}.getType();
         return gson.fromJson(jsonResults, listType);
     }
 
     private static String queryMovies(String query) {
-        String jsonResult = "{}";
-
         Uri queryUri = Uri.parse(BASE_API_URL + query).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM, TMDB.getKey())
                 .build();
+
+        return queryUri(queryUri);
+    }
+
+    private static String queryMovieReviews(int movieId) {
+        Uri queryUri = Uri.parse(BASE_API_URL + String.format(MOVIE_REVIEWS, movieId)).buildUpon()
+                .appendQueryParameter(API_KEY_PARAM, TMDB.getKey())
+                .build();
+
+        return queryUri(queryUri);
+    }
+
+    private static String queryUri(Uri queryUri) {
+        String jsonResult = "{}";
 
         URL queryUrl;
         try {

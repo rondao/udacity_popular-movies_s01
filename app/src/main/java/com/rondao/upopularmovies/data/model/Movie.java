@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 public class Movie implements Parcelable {
     private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
 
+    private int id;
     private String originalTitle;
     private String posterPath;
     private String overview;
@@ -47,6 +48,14 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getOriginalTitle() {
         return originalTitle;
