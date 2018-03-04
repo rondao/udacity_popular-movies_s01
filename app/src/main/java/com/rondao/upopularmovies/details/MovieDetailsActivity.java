@@ -3,6 +3,7 @@ package com.rondao.upopularmovies.details;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.rondao.upopularmovies.R;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.MovieReview;
+import com.rondao.upopularmovies.data.model.MovieTrailer;
 import com.rondao.upopularmovies.data.source.MoviesAPI;
 import com.squareup.picasso.Picasso;
 
@@ -20,8 +22,11 @@ import java.util.ArrayList;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewReviews;
     private MovieReviewsAdapter mMovieReviewsAdapter;
+
+    private RecyclerView mRecyclerViewTrailers;
+    private MovieTrailersAdapter mMovieTrailersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +48,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tv_movie_synopsis))
                 .setText(movie.getOverview());
 
-        mRecyclerView = findViewById(R.id.recyclerview_reviews);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setHasFixedSize(true);
-
         mMovieReviewsAdapter = new MovieReviewsAdapter();
-        mRecyclerView.setAdapter(mMovieReviewsAdapter);
+        mMovieTrailersAdapter = new MovieTrailersAdapter();
+
+        mRecyclerViewReviews = findViewById(R.id.recyclerview_reviews);
+        mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewReviews.setHasFixedSize(true);
+        mRecyclerViewReviews.setAdapter(mMovieReviewsAdapter);
+
+        mRecyclerViewTrailers = findViewById(R.id.recyclerview_trailers);
+        mRecyclerViewTrailers.setLayoutManager(new GridLayoutManager(this, 2));
+        mRecyclerViewTrailers.setHasFixedSize(true);
+        mRecyclerViewTrailers.setAdapter(mMovieTrailersAdapter);
 
         new FetchMovieReviewsTask().execute(movie.getId());
+        new FetchMovieTrailersTask().execute(movie.getId());
     }
 
     @Override
@@ -78,6 +89,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<MovieReview> movieReviews) {
             if (movieReviews != null) {
                 mMovieReviewsAdapter.setMovieReviewsData(movieReviews);
+            }
+        }
+    }
+
+    class FetchMovieTrailersTask extends AsyncTask<Integer, Void, ArrayList<MovieTrailer>> {
+        @Override
+        protected ArrayList<MovieTrailer> doInBackground(Integer... params) {
+            return MoviesAPI.getMovieTrailers(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<MovieTrailer> movieTrailers) {
+            if (movieTrailers != null) {
+                mMovieTrailersAdapter.setMovieTrailersData(movieTrailers);
             }
         }
     }
