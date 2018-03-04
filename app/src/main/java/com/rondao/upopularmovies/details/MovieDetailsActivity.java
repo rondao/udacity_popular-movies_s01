@@ -1,5 +1,7 @@
 package com.rondao.upopularmovies.details;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +18,12 @@ import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.MovieReview;
 import com.rondao.upopularmovies.data.model.MovieTrailer;
 import com.rondao.upopularmovies.data.source.MoviesAPI;
+import com.rondao.upopularmovies.utils.YouTubeHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity implements MovieTrailersAdapter.MovieTrailerItemClickListener {
 
     private RecyclerView mRecyclerViewReviews;
     private MovieReviewsAdapter mMovieReviewsAdapter;
@@ -49,7 +52,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .setText(movie.getOverview());
 
         mMovieReviewsAdapter = new MovieReviewsAdapter();
-        mMovieTrailersAdapter = new MovieTrailersAdapter();
+        mMovieTrailersAdapter = new MovieTrailersAdapter(this);
 
         mRecyclerViewReviews = findViewById(R.id.recyclerview_reviews);
         mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
@@ -77,6 +80,18 @@ public class MovieDetailsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMovieTrailerItemClick(MovieTrailer movieTrailer) {
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, YouTubeHelper.getAppUri(movieTrailer.getKey()));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, YouTubeHelper.getWebUri(movieTrailer.getKey()));
+
+        try {
+            startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            startActivity(webIntent);
+        }
     }
 
     class FetchMovieReviewsTask extends AsyncTask<Integer, Void, ArrayList<MovieReview>> {

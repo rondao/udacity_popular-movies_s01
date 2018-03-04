@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -16,23 +17,37 @@ import java.util.ArrayList;
 
 public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailersAdapter.MovieTrailersAdapterViewHolder> {
     private ArrayList<MovieTrailer> mMovieTrailersData;
+    private final MovieTrailerItemClickListener mOnClickListener;
 
-    public MovieTrailersAdapter() {
+    public MovieTrailersAdapter(MovieTrailerItemClickListener onClickListener) {
         mMovieTrailersData = new ArrayList<>();
+        mOnClickListener = onClickListener;
     }
 
-    public class MovieTrailersAdapterViewHolder extends RecyclerView.ViewHolder {
+    public interface MovieTrailerItemClickListener {
+        void onMovieTrailerItemClick(MovieTrailer movieTrailer);
+    }
+
+    public class MovieTrailersAdapterViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
         public final ImageView mMovieImageView;
 
         public MovieTrailersAdapterViewHolder(View view) {
             super(view);
             mMovieImageView = view.findViewById(R.id.iv_trailers_thumbnail);
+
+            itemView.setOnClickListener(this);
         }
 
         void bind(MovieTrailer movieTrailer) {
             Picasso.with(mMovieImageView.getContext())
                     .load(YouTubeHelper.getThumbnail(movieTrailer.getKey()))
                     .into(mMovieImageView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mOnClickListener.onMovieTrailerItemClick(
+                    mMovieTrailersData.get(getAdapterPosition()));
         }
     }
 
