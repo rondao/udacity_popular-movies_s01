@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,9 +16,7 @@
             android:id="@+id/iv_movie_poster"
             android:layout_width="92dp"
             android:layout_height="135dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:contentDescription="@string/iv_movie_poster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,9 +25,7 @@
             android:id="@+id/tv_original_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:text="@string/tv_original_title"
             app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,9 +34,7 @@
             android:id="@+id/tv_movie_original_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintStart_toEndOf="@+id/tv_original_title"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/tv_movie_original_title" />
@@ -48,9 +43,7 @@
             android:id="@+id/tv_average_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:text="@string/tv_average_rating"
             app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title" />
@@ -59,9 +52,7 @@
             android:id="@+id/tv_movie_average_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintStart_toEndOf="@+id/tv_average_rating"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_original_title"
             tools:text="@string/tv_movie_average_rating" />
@@ -70,9 +61,7 @@
             android:id="@+id/tv_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:text="@string/tv_release_date"
             app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
             app:layout_constraintTop_toBottomOf="@+id/tv_average_rating" />
@@ -81,9 +70,7 @@
             android:id="@+id/tv_movie_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintStart_toEndOf="@+id/tv_release_date"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_average_rating"
             tools:text="@string/tv_movie_release_date" />
@@ -92,9 +79,7 @@
             android:id="@+id/tv_movie_synopsis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster"
             tools:text="@string/tv_movie_sinopsis" />
