@@ -2,6 +2,8 @@ package com.rondao.upopularmovies;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,5 +31,19 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .setText(movie.getReleaseDate());
         ((TextView) findViewById(R.id.tv_movie_synopsis))
                 .setText(movie.getOverview());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movies_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_favorite_movie) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
