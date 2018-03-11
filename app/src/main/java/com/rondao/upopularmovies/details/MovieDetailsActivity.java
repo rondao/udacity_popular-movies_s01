@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rondao.upopularmovies.R;
-import com.rondao.upopularmovies.data.db.MovieContract;
 import com.rondao.upopularmovies.data.db.MoviesDbHelper;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.Review;
@@ -36,6 +35,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
 
     private RecyclerView mRecyclerViewTrailers;
     private TrailersAdapter mTrailersAdapter;
+
+    private boolean isFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
         Cursor cursor = moviesDbHelper.queryMovie(currentMovie);
         try {
             if (cursor != null && cursor.getCount() == 1) {
+                isFavorite = true;
                 menu.findItem(R.id.action_favorite_movie)
                         .setIcon(R.drawable.ic_favorite_true);
             }
@@ -102,11 +104,20 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_favorite_movie) {
-            if (moviesDbHelper.insert(currentMovie) > 0) {
-                item.setIcon(R.drawable.ic_favorite_true);
+            if (isFavorite) {
+                if (moviesDbHelper.delete(currentMovie)) {
+                    isFavorite = false;
+                    item.setIcon(R.drawable.ic_favorite_false);
+                }
+            } else {
+                if (moviesDbHelper.insert(currentMovie)) {
+                    isFavorite = true;
+                    item.setIcon(R.drawable.ic_favorite_true);
+                }
             }
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
