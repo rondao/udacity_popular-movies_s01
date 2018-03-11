@@ -1,6 +1,7 @@
 package com.rondao.upopularmovies;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.rondao.upopularmovies.data.db.MovieContract;
+import com.rondao.upopularmovies.data.db.MoviesDbHelper;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.source.MoviesAPI;
 import com.rondao.upopularmovies.details.MovieDetailsActivity;
@@ -26,7 +29,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     private TextView mErrorMessage;
     private ImageView mRefreshButton;
 
+    private MoviesDbHelper moviesDbHelper;
+
     private String currentSort = MoviesAPI.MOST_POPULAR;
+    private final String FAVORITES = "Favorites";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         mErrorMessage = findViewById(R.id.tv_error_msg);
         mRefreshButton = findViewById(R.id.iv_refresh);
         mRecyclerView = findViewById(R.id.recyclerview_thumbnails);
+
+        moviesDbHelper = new MoviesDbHelper(this);
 
         mRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +75,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         } else if (item.getItemId() == R.id.action_top_rated) {
             currentSort = MoviesAPI.TOP_RATED;
         } else if (item.getItemId() == R.id.action_favorites) {
+            currentSort = FAVORITES;
         }
 
         mRecyclerView.getLayoutManager().scrollToPosition(0);
@@ -93,7 +102,28 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
         @Override
         protected ArrayList<Movie> doInBackground(String... params) {
-            return MoviesAPI.getMovies(params[0]);
+            if (FAVORITES.equals(params[0])) {
+                return fetchDbMovies();
+            } else {
+                return MoviesAPI.getMovies(params[0]);
+            }
+        }
+
+        private ArrayList<Movie> fetchDbMovies() {
+            Cursor cursor = moviesDbHelper.queryAll();
+            ArrayList<Movie> favoriteMovies = new ArrayList<>(cursor.getCount());
+
+            try {
+                while (cursor.moveToNext()) {
+                    Movie m = MoviesAPI.getMovie(cursor.getInt(
+                            cursor.getColumnIndex(MovieContract.MovieEntry._ID)));
+                    favoriteMovies.add(m);
+                }
+            } finally {
+                cursor.close();
+            }
+
+            return favoriteMovies;
         }
 
         @Override
