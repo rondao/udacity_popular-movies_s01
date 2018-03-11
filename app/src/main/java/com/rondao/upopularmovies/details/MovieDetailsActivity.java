@@ -102,7 +102,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_favorite_movie) {
-            moviesDbHelper.insert(currentMovie);
+            if (moviesDbHelper.insert(currentMovie) > 0) {
+                item.setIcon(R.drawable.ic_favorite_true);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
