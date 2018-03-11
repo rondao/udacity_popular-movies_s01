@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rondao.upopularmovies.details.MovieDetailsActivity"></activity>
+        <activity android:name="com.rondao.upopularmovies.details.MovieDetailsActivity" />
     </application>
 
 </manifest>

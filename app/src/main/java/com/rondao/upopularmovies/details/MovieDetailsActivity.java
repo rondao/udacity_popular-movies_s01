@@ -30,10 +30,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     private MoviesDbHelper moviesDbHelper;
     private Movie currentMovie;
 
-    private RecyclerView mRecyclerViewReviews;
     private ReviewsAdapter mReviewsAdapter;
-
-    private RecyclerView mRecyclerViewTrailers;
     private TrailersAdapter mTrailersAdapter;
 
     private boolean isFavorite;
@@ -63,15 +60,15 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
         mReviewsAdapter = new ReviewsAdapter();
         mTrailersAdapter = new TrailersAdapter(this);
 
-        mRecyclerViewReviews = findViewById(R.id.recyclerview_reviews);
-        mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewReviews.setHasFixedSize(true);
-        mRecyclerViewReviews.setAdapter(mReviewsAdapter);
+        RecyclerView rcReviews = findViewById(R.id.recyclerview_reviews);
+        rcReviews.setLayoutManager(new LinearLayoutManager(this));
+        rcReviews.setHasFixedSize(true);
+        rcReviews.setAdapter(mReviewsAdapter);
 
-        mRecyclerViewTrailers = findViewById(R.id.recyclerview_trailers);
-        mRecyclerViewTrailers.setLayoutManager(new GridLayoutManager(this, 2));
-        mRecyclerViewTrailers.setHasFixedSize(true);
-        mRecyclerViewTrailers.setAdapter(mTrailersAdapter);
+        RecyclerView rcTrailers = findViewById(R.id.recyclerview_trailers);
+        rcTrailers.setLayoutManager(new GridLayoutManager(this, 2));
+        rcTrailers.setHasFixedSize(true);
+        rcTrailers.setAdapter(mTrailersAdapter);
 
         new FetchMovieReviewsTask().execute(currentMovie.getId());
         new FetchMovieTrailersTask().execute(currentMovie.getId());

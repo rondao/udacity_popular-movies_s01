@@ -5,7 +5,6 @@ import android.net.Uri;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -15,12 +14,10 @@ import com.rondao.upopularmovies.data.model.Trailer;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MoviesAPI {
@@ -31,9 +28,9 @@ public class MoviesAPI {
     public static final String MOST_POPULAR = "/movie/popular";
     public static final String TOP_RATED = "/movie/top_rated";
 
-    public static final String MOVIE = "/movie/%d";
-    public static final String MOVIE_REVIEWS = "/movie/%d/reviews";
-    public static final String MOVIE_TRAILERS = "/movie/%d/videos";
+    private static final String MOVIE = "/movie/%d";
+    private static final String MOVIE_REVIEWS = "/movie/%d/reviews";
+    private static final String MOVIE_TRAILERS = "/movie/%d/videos";
 
     private static final String API_KEY_PARAM = "api_key";
 
@@ -42,8 +39,7 @@ public class MoviesAPI {
     }
 
     public static Movie getMovie(int movieId) {
-        Movie m = jsonToType(queryMovie(movieId), new TypeToken<Movie>(){});
-        return m;
+        return jsonToType(queryMovie(movieId), new TypeToken<Movie>(){});
     }
 
     public static ArrayList<Review> getMovieReviews(int movieId) {
