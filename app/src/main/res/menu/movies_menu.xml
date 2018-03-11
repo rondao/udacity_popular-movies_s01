@@ -5,10 +5,16 @@
     android:layout_width="match_parent">
 
     <item
-        android:id="@+id/action_toggle_sort"
+        android:id="@+id/action_most_popular"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_most_popular"
-        android:title="@string/menu_toggle_sort"/>
+        android:title="@string/menu_most_popular"/>
+    <item
+        android:id="@+id/action_top_rated"
+        android:orderInCategory="2"
+        android:title="@string/menu_top_rated"/>
+    <item
+        android:id="@+id/action_favorites"
+        android:orderInCategory="3"
+        android:title="@string/menu_favorites"/>
 
 </menu>

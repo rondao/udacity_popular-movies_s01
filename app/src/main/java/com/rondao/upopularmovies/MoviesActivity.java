@@ -62,20 +62,16 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_toggle_sort) {
-            if (currentSort.equals(MoviesAPI.MOST_POPULAR)) {
-                currentSort = MoviesAPI.TOP_RATED;
-                item.setIcon(R.drawable.ic_top_rated);
-            } else {
-                currentSort = MoviesAPI.MOST_POPULAR;
-                item.setIcon(R.drawable.ic_most_popular);
-            }
-
-            mRecyclerView.getLayoutManager().scrollToPosition(0);
-            new FetchMoviesTask().execute(currentSort);
-            return true;
+        if (item.getItemId() == R.id.action_most_popular) {
+            currentSort = MoviesAPI.MOST_POPULAR;
+        } else if (item.getItemId() == R.id.action_top_rated) {
+            currentSort = MoviesAPI.TOP_RATED;
+        } else if (item.getItemId() == R.id.action_favorites) {
         }
-        return super.onOptionsItemSelected(item);
+
+        mRecyclerView.getLayoutManager().scrollToPosition(0);
+        new FetchMoviesTask().execute(currentSort);
+        return true;
     }
 
     @Override

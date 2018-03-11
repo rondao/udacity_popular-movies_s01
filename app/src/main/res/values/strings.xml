@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    <string name="menu_toggle_sort">Toggle Sorting</string>
+    <string name="menu_most_popular">Most Popular</string>
+    <string name="menu_top_rated">Top Rated</string>
+    <string name="menu_favorites">Favorites</string>
     <string name="menu_favorite_movie">Favorite this movie</string>
     <string name="iv_movie_poster">Movie Poster</string>
     <string name="iv_movie_thumbnail">Movie Thumbnail</string>
