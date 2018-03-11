@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.rondao.upopularmovies.data.db.MovieContract.*;
+import com.rondao.upopularmovies.data.model.Movie;
 
 public class MoviesDbHelper extends SQLiteOpenHelper {
 
@@ -32,10 +33,10 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insert(int id, String name) {
+    public long insert(Movie movie) {
         ContentValues cv = new ContentValues();
-        cv.put(MovieEntry._ID, id);
-        cv.put(MovieEntry.COLUMN_NAME, name);
+        cv.put(MovieEntry._ID, movie.getId());
+        cv.put(MovieEntry.COLUMN_NAME, movie.getOriginalTitle());
 
         return getWritableDatabase().insert(MovieEntry.TABLE_NAME, null, cv);
     }
