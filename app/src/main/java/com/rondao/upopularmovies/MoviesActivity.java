@@ -122,9 +122,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
             try {
                 while (cursor.moveToNext()) {
-                    Movie m = MoviesAPI.getMovie(cursor.getInt(
-                            cursor.getColumnIndex(MovieContract.MovieEntry._ID)));
-                    favoriteMovies.add(m);
+                    favoriteMovies.add(MoviesAPI.getMovie(cursor.getInt(
+                            cursor.getColumnIndex(MovieContract.MovieEntry._ID))));
                 }
             } finally {
                 cursor.close();
