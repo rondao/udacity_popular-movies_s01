@@ -70,7 +70,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.movies_menu, menu);
+        getMenuInflater().inflate(R.menu.movie_details_menu, menu);
         return true;
     }
 
