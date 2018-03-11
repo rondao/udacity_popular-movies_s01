@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rondao.upopularmovies.R;
+import com.rondao.upopularmovies.data.db.MoviesDbHelper;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.Review;
 import com.rondao.upopularmovies.data.model.Trailer;
@@ -24,6 +25,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class MovieDetailsActivity extends AppCompatActivity implements TrailersAdapter.TrailerItemClickListener {
+
+    private MoviesDbHelper moviesDbHelper;
+    private Movie currentMovie;
 
     private RecyclerView mRecyclerViewReviews;
     private ReviewsAdapter mReviewsAdapter;
@@ -36,20 +40,22 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        Movie movie = getIntent().getParcelableExtra("movie");
+        currentMovie = getIntent().getParcelableExtra("movie");
 
         Picasso.with(this)
-                .load(movie.getPosterFullPath())
+                .load(currentMovie.getPosterFullPath())
                 .into((ImageView) findViewById(R.id.iv_movie_poster));
 
         ((TextView) findViewById(R.id.tv_movie_original_title))
-                .setText(movie.getOriginalTitle());
+                .setText(currentMovie.getOriginalTitle());
         ((TextView) findViewById(R.id.tv_movie_average_rating))
-                .setText(String.valueOf(movie.getVoteAverage()));
+                .setText(String.valueOf(currentMovie.getVoteAverage()));
         ((TextView) findViewById(R.id.tv_movie_release_date))
-                .setText(movie.getReleaseDate());
+                .setText(currentMovie.getReleaseDate());
         ((TextView) findViewById(R.id.tv_movie_synopsis))
-                .setText(movie.getOverview());
+                .setText(currentMovie.getOverview());
+
+        moviesDbHelper = new MoviesDbHelper(this);
 
         mReviewsAdapter = new ReviewsAdapter();
         mTrailersAdapter = new TrailersAdapter(this);
@@ -64,8 +70,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
         mRecyclerViewTrailers.setHasFixedSize(true);
         mRecyclerViewTrailers.setAdapter(mTrailersAdapter);
 
-        new FetchMovieReviewsTask().execute(movie.getId());
-        new FetchMovieTrailersTask().execute(movie.getId());
+        new FetchMovieReviewsTask().execute(currentMovie.getId());
+        new FetchMovieTrailersTask().execute(currentMovie.getId());
+    }
+
+    @Override
+    protected void onDestroy() {
+        currentMovie = null;
+        super.onDestroy();
     }
 
     @Override
@@ -77,6 +89,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_favorite_movie) {
+            moviesDbHelper.insert(currentMovie);
             return true;
         }
         return super.onOptionsItemSelected(item);
