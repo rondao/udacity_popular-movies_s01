@@ -27,6 +27,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     private MoviesAdapter mMoviesAdapter;
     private ProgressBar mLoadingIndicator;
     private TextView mErrorMessage;
+    private TextView mEmptyFavorites;
     private ImageView mRefreshButton;
 
     private MoviesDbHelper moviesDbHelper;
@@ -41,6 +42,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
         mLoadingIndicator = findViewById(R.id.progressBar);
         mErrorMessage = findViewById(R.id.tv_error_msg);
+        mEmptyFavorites = findViewById(R.id.tv_empty_favorites);
         mRefreshButton = findViewById(R.id.iv_refresh);
         mRecyclerView = findViewById(R.id.recyclerview_thumbnails);
 
@@ -102,6 +104,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
             mLoadingIndicator.setVisibility(View.VISIBLE);
             mErrorMessage.setVisibility(View.INVISIBLE);
             mRefreshButton.setVisibility(View.INVISIBLE);
+            mEmptyFavorites.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -134,9 +137,15 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         protected void onPostExecute(ArrayList<Movie> movies) {
             if (movies != null) {
                 mMoviesAdapter.setMoviesData(movies);
+
+                if (movies.isEmpty() && FAVORITES.equals(currentSort)) {
+                    mEmptyFavorites.setVisibility(View.VISIBLE);
+                }
             } else {
-                mErrorMessage.setVisibility(View.VISIBLE);
-                mRefreshButton.setVisibility(View.VISIBLE);
+                mMoviesAdapter.setMoviesData(new ArrayList<Movie>());
+
+                 mErrorMessage.setVisibility(View.VISIBLE);
+                 mRefreshButton.setVisibility(View.VISIBLE);
             }
             mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
