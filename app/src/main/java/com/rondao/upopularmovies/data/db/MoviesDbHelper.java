@@ -45,11 +45,17 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 null,null,null);
     }
 
-    public long insert(Movie movie) {
+    public boolean insert(Movie movie) {
         ContentValues cv = new ContentValues();
         cv.put(MovieEntry._ID, movie.getId());
         cv.put(MovieEntry.COLUMN_NAME, movie.getOriginalTitle());
 
-        return getWritableDatabase().insert(MovieEntry.TABLE_NAME, null, cv);
+        return (getWritableDatabase().insert(MovieEntry.TABLE_NAME, null, cv) > 0);
+    }
+
+    public boolean delete(Movie movie) {
+        return (getWritableDatabase().delete(MovieEntry.TABLE_NAME,
+                MovieEntry._ID+"=?",
+                new String[]{String.valueOf(movie.getId())}) > 0);
     }
 }
