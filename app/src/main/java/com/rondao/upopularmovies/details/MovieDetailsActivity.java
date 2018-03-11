@@ -2,6 +2,7 @@ package com.rondao.upopularmovies.details;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rondao.upopularmovies.R;
+import com.rondao.upopularmovies.data.db.MovieContract;
 import com.rondao.upopularmovies.data.db.MoviesDbHelper;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.Review;
@@ -83,6 +85,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movie_details_menu, menu);
+
+        Cursor cursor = moviesDbHelper.queryMovie(currentMovie);
+        try {
+            if (cursor != null && cursor.getCount() == 1) {
+                menu.findItem(R.id.action_favorite_movie)
+                        .setIcon(R.drawable.ic_favorite_true);
+            }
+        } finally {
+            cursor.close();
+        }
+
         return true;
     }
 
