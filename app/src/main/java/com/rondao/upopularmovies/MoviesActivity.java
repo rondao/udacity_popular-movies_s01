@@ -58,7 +58,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
         mMoviesAdapter = new MoviesAdapter(this);
         mRecyclerView.setAdapter(mMoviesAdapter);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         new FetchMoviesTask().execute(currentSort);
     }
 
