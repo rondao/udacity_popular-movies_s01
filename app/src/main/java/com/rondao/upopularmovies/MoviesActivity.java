@@ -2,6 +2,8 @@ package com.rondao.upopularmovies;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -97,6 +99,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         startActivity(intent);
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {
         @Override
         protected void onPreExecute() {
@@ -109,6 +118,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
         @Override
         protected ArrayList<Movie> doInBackground(String... params) {
+            if (!isOnline()) {
+                return null;
+            }
+
             if (FAVORITES.equals(params[0])) {
                 return fetchDbMovies();
             } else {
