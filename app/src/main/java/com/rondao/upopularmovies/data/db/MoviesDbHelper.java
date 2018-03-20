@@ -33,29 +33,4 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + MovieEntry.TABLE_NAME);
         onCreate(db);
     }
-
-    public Cursor queryAll() {
-        return getReadableDatabase().query(MovieEntry.TABLE_NAME,
-                null,null,null,null,null,null);
-    }
-
-    public Cursor queryMovie(Movie movie) {
-        return getReadableDatabase().query(MovieEntry.TABLE_NAME,
-                null, MovieEntry._ID+"=?", new String[]{String.valueOf(movie.getId())},
-                null,null,null);
-    }
-
-    public boolean insert(Movie movie) {
-        ContentValues cv = new ContentValues();
-        cv.put(MovieEntry._ID, movie.getId());
-        cv.put(MovieEntry.COLUMN_NAME, movie.getOriginalTitle());
-
-        return (getWritableDatabase().insert(MovieEntry.TABLE_NAME, null, cv) > 0);
-    }
-
-    public boolean delete(Movie movie) {
-        return (getWritableDatabase().delete(MovieEntry.TABLE_NAME,
-                MovieEntry._ID+"=?",
-                new String[]{String.valueOf(movie.getId())}) > 0);
-    }
 }

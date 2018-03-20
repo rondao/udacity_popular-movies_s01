@@ -22,4 +22,5 @@
     <string name="tv_label_review_number">Review</string>
     <string name="tv_review_number">#num</string>
     <string name="iv_trailers_thumbnail">Movie Trailer</string>
+    <string name="content_authority">com.rondao.upopularmovies</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.rondao.upopularmovies;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -157,15 +158,15 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
         }
 
         private ArrayList<Movie> fetchDbMovies() {
-            Cursor cursor = moviesDbHelper.queryAll();
-            ArrayList<Movie> favoriteMovies = new ArrayList<>(cursor.getCount());
+            Cursor cursor = getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
+                    null, null, null, null);
 
-            try {
+            ArrayList<Movie> favoriteMovies = new ArrayList<>();
+            if (cursor != null) {
                 while (cursor.moveToNext()) {
                     favoriteMovies.add(MoviesAPI.getMovie(cursor.getInt(
                             cursor.getColumnIndex(MovieContract.MovieEntry._ID))));
                 }
-            } finally {
                 cursor.close();
             }
 

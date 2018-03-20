@@ -1,8 +1,11 @@
 package com.rondao.upopularmovies.details;
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rondao.upopularmovies.R;
+import com.rondao.upopularmovies.data.db.MovieContract;
 import com.rondao.upopularmovies.data.db.MoviesDbHelper;
 import com.rondao.upopularmovies.data.model.Movie;
 import com.rondao.upopularmovies.data.model.Review;
@@ -84,14 +88,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movie_details_menu, menu);
 
-        Cursor cursor = moviesDbHelper.queryMovie(currentMovie);
-        try {
-            if (cursor != null && cursor.getCount() == 1) {
-                isFavorite = true;
-                menu.findItem(R.id.action_favorite_movie)
-                        .setIcon(R.drawable.ic_favorite_true);
-            }
-        } finally {
+        ContentResolver resolver = getContentResolver();
+        Cursor cursor = resolver.query(MovieContract.MovieEntry.buildMoviesUriWithId(currentMovie),
+                null, null, null, null);
+
+        if (cursor != null && cursor.getCount() == 1) {
+            isFavorite = true;
+            menu.findItem(R.id.action_favorite_movie)
+                    .setIcon(R.drawable.ic_favorite_true);
             cursor.close();
         }
 
@@ -102,12 +106,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailersA
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_favorite_movie) {
             if (isFavorite) {
-                if (moviesDbHelper.delete(currentMovie)) {
+                if (getContentResolver().delete(MovieContract.MovieEntry.buildMoviesUriWithId(currentMovie), null, null) > 0) {
                     isFavorite = false;
                     item.setIcon(R.drawable.ic_favorite_false);
                 }
             } else {
-                if (moviesDbHelper.insert(currentMovie)) {
+                ContentValues cv = new ContentValues();
+                cv.put(MovieContract.MovieEntry._ID, currentMovie.getId());
+                cv.put(MovieContract.MovieEntry.COLUMN_NAME, currentMovie.getOriginalTitle());
+
+                Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, cv);
+                if (uri != null) {
                     isFavorite = true;
                     item.setIcon(R.drawable.ic_favorite_true);
                 }

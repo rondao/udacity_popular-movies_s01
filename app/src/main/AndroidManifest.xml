@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name="com.rondao.upopularmovies.details.MovieDetailsActivity" />
+
+        <provider
+            android:name="com.rondao.upopularmovies.data.db.MoviesProvider"
+            android:authorities="@string/content_authority"
+            android:exported="false" />
     </application>
 
 </manifest>
