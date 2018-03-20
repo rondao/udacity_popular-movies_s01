@@ -34,13 +34,15 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     private TextView mEmptyFavorites;
     private ImageView mRefreshButton;
 
+    private Parcelable mLayoutManagerSavedState;
+
     private MoviesDbHelper moviesDbHelper;
 
     private String currentSort = MoviesAPI.MOST_POPULAR;
     private final String FAVORITES = "Favorites";
 
     private static final String SAVED_LAYOUT_MANAGER = "RecyclerVIew_LayoutManager";
-    private Parcelable mLayoutManagerSavedState;
+    private static final String SAVED_CURRENT_SORT = "CurrentSort";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
             }
         });
 
+        if (savedInstanceState != null) {
+            String savedSort = savedInstanceState.getString(SAVED_CURRENT_SORT);
+            if (savedSort != null) {
+                currentSort = savedSort;
+            }
+        }
+
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setHasFixedSize(true);
 
@@ -78,6 +87,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(SAVED_LAYOUT_MANAGER, mRecyclerView.getLayoutManager().onSaveInstanceState());
+        outState.putString(SAVED_CURRENT_SORT, currentSort);
         super.onSaveInstanceState(outState);
     }
 
@@ -169,6 +179,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
 
                 if (mLayoutManagerSavedState != null) {
                     mRecyclerView.getLayoutManager().onRestoreInstanceState(mLayoutManagerSavedState);
+                    // Setting it to null so when changing currentSort the layout is not restored again.
+                    mLayoutManagerSavedState = null;
                 }
 
                 if (movies.isEmpty() && FAVORITES.equals(currentSort)) {
