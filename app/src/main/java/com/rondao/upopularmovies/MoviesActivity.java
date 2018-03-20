@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,6 +39,9 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     private String currentSort = MoviesAPI.MOST_POPULAR;
     private final String FAVORITES = "Favorites";
 
+    private static final String SAVED_LAYOUT_MANAGER = "RecyclerVIew_LayoutManager";
+    private Parcelable mLayoutManagerSavedState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,18 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
     protected void onStart() {
         super.onStart();
         new FetchMoviesTask().execute(currentSort);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(SAVED_LAYOUT_MANAGER, mRecyclerView.getLayoutManager().onSaveInstanceState());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        mLayoutManagerSavedState = savedInstanceState.getParcelable(SAVED_LAYOUT_MANAGER);
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -150,14 +167,18 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.M
             if (movies != null) {
                 mMoviesAdapter.setMoviesData(movies);
 
+                if (mLayoutManagerSavedState != null) {
+                    mRecyclerView.getLayoutManager().onRestoreInstanceState(mLayoutManagerSavedState);
+                }
+
                 if (movies.isEmpty() && FAVORITES.equals(currentSort)) {
                     mEmptyFavorites.setVisibility(View.VISIBLE);
                 }
             } else {
                 mMoviesAdapter.setMoviesData(new ArrayList<Movie>());
 
-                 mErrorMessage.setVisibility(View.VISIBLE);
-                 mRefreshButton.setVisibility(View.VISIBLE);
+                mErrorMessage.setVisibility(View.VISIBLE);
+                mRefreshButton.setVisibility(View.VISIBLE);
             }
             mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
